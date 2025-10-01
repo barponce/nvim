@@ -14,6 +14,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       -- Configure diagnostics
       vim.diagnostic.config({
@@ -49,6 +50,8 @@ return {
       vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextHint', { bg = '#2d3640', fg = '#89dceb' })
       vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { bg = '#2d3640', fg = '#89b4fa' })
 
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
       local on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
         vim.keymap.set('n', 'gdf', vim.lsp.buf.definition, opts)
@@ -61,6 +64,7 @@ return {
       end
 
       vim.lsp.config.lua_ls = {
+        capabilities = capabilities,
         cmd = { 'lua-language-server' },
         root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
         on_attach = on_attach,
@@ -74,14 +78,18 @@ return {
       }
 
       vim.lsp.config.ts_ls = {
+        capabilities = capabilities,
         on_attach = on_attach,
       }
 
       vim.lsp.config.sourcekit = {
         cmd = { 'sourcekit-lsp' },
+        capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { 'swift', 'objective-c', 'objective-cpp' },
       }
+
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'sourcekit' })
     end
   }
 }
