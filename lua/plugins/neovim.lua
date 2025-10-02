@@ -10,4 +10,8 @@ return {
     "nvim-mini/mini.pick",           -- optional
     "folke/snacks.nvim",             -- optional
   },
+  config = function()
+    require('neogit').setup{}
+    vim.keymap.set('n', '<leader>gh', '<cmd>Neogit<cr>', { desc = 'Git status (Neogit)' })
+  end,
 }
