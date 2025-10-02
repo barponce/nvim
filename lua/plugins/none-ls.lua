@@ -13,6 +13,8 @@ return {
 				null_ls.builtins.formatting.stylua,
 				require("none-ls.formatting.eslint_d"),
 				null_ls.builtins.formatting.prettier,
+				null_ls.builtins.formatting.swiftformat,
+				null_ls.builtins.diagnostics.swiftlint,
 			},
 		})
 

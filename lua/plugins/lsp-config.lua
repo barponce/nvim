@@ -10,6 +10,15 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "ts_ls" }
       })
+
+      require("mason").setup()
+      local registry = require("mason-registry")
+
+      -- Auto-install swiftlint
+      local p = registry.get_package("swiftlint")
+      if not p:is_installed() then
+        p:install()
+      end
     end
   },
   {
