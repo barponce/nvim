@@ -25,4 +25,4 @@ theme_switcher.init()
 -- Theme switching keymaps
 vim.keymap.set("n", "<leader>tn", theme_switcher.next_theme, { desc = "Next theme" })
 vim.keymap.set("n", "<leader>tp", theme_switcher.prev_theme, { desc = "Previous theme" })
-vim.keymap.set("n", "<leader>ts", theme_switcher.pick_theme, { desc = "Select theme" })
+vim.keymap.set("n", "<leader>st", theme_switcher.pick_theme, { desc = "Select theme" })
