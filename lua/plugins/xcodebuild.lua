@@ -10,6 +10,11 @@ return {
 	config = function()
 		require("xcodebuild").setup({
 			-- Default settings, customize as needed
+			integrations = {
+				pymobiledevice = {
+					enabled = true,
+				},
+			},
 		})
 
 		-- Key mappings (only active when plugin is loaded)

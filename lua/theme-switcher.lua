@@ -79,6 +79,97 @@ M.themes = {
     setup = function()
       vim.g.everforest_background = 'soft'
     end
+  },
+  {
+    name = "rose-pine",
+    colorscheme = "rose-pine",
+    background = "dark"
+  },
+  {
+    name = "rose-pine-moon",
+    colorscheme = "rose-pine-moon",
+    background = "dark"
+  },
+  {
+    name = "rose-pine-dawn",
+    colorscheme = "rose-pine-dawn",
+    background = "light"
+  },
+  {
+    name = "catppuccin-latte",
+    colorscheme = "catppuccin-latte",
+    background = "light"
+  },
+  {
+    name = "catppuccin-frappe",
+    colorscheme = "catppuccin-frappe",
+    background = "dark"
+  },
+  {
+    name = "catppuccin-macchiato",
+    colorscheme = "catppuccin-macchiato",
+    background = "dark"
+  },
+  {
+    name = "catppuccin-mocha",
+    colorscheme = "catppuccin-mocha",
+    background = "dark"
+  },
+  {
+    name = "onedark-dark",
+    colorscheme = "onedark",
+    background = "dark",
+    setup = function()
+      require("onedark").setup({ style = "dark" })
+    end
+  },
+  {
+    name = "onedark-darker",
+    colorscheme = "onedark",
+    background = "dark",
+    setup = function()
+      require("onedark").setup({ style = "darker" })
+    end
+  },
+  {
+    name = "onedark-cool",
+    colorscheme = "onedark",
+    background = "dark",
+    setup = function()
+      require("onedark").setup({ style = "cool" })
+    end
+  },
+  {
+    name = "onedark-deep",
+    colorscheme = "onedark",
+    background = "dark",
+    setup = function()
+      require("onedark").setup({ style = "deep" })
+    end
+  },
+  {
+    name = "onedark-warm",
+    colorscheme = "onedark",
+    background = "dark",
+    setup = function()
+      require("onedark").setup({ style = "warm" })
+    end
+  },
+  {
+    name = "onedark-warmer",
+    colorscheme = "onedark",
+    background = "dark",
+    setup = function()
+      require("onedark").setup({ style = "warmer" })
+    end
+  },
+  {
+    name = "onedark-light",
+    colorscheme = "onedark",
+    background = "light",
+    setup = function()
+      require("onedark").setup({ style = "light" })
+    end
   }
 }
 
