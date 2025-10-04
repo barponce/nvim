@@ -8,7 +8,7 @@ return {
 		},
 		hint_enable = true,
 		hint_prefix = "• ",
-		floating_window = true,
+		floating_window = false,
 		floating_window_above_cur_line = true,
 		transparency = 10,
 		padding = ' ',

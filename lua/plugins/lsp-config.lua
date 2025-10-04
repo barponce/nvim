@@ -8,7 +8,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls" }
+        ensure_installed = { "lua_ls", "ts_ls", "tailwindcss" }
       })
 
       require("mason").setup()
@@ -64,6 +64,7 @@ return {
       local on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
         vim.keymap.set('n', 'gdf', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gds', function() vim.cmd('split') vim.lsp.buf.definition() end, opts)
         vim.keymap.set('n', 'gdc', vim.lsp.buf.declaration, opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', 'gim', vim.lsp.buf.implementation, opts)
@@ -98,7 +99,12 @@ return {
         filetypes = { 'swift', 'objective-c', 'objective-cpp' },
       }
 
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'sourcekit' })
+      vim.lsp.config.tailwindcss = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }
+
+      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'sourcekit', 'tailwindcss' })
     end
   }
 }
