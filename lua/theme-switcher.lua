@@ -173,8 +173,8 @@ M.themes = {
   }
 }
 
--- Current theme index (starts with solarized-light)
-M.current_theme_index = 3
+-- Current theme index (starts with kanagawa-wave)
+M.current_theme_index = 4
 
 -- Set default theme (gruvbox)
 M.set_theme = function(theme)
