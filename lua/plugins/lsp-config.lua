@@ -1,17 +1,27 @@
 return {
   {"mason-org/mason.nvim",
   config = function()
-    require("mason").setup()
+    require("mason").setup({
+      ui = {
+        check_outdated_packages_on_open = true,
+      },
+    })
+
+    -- Auto-update Mason packages on startup (runs in background)
+    vim.defer_fn(function()
+      vim.cmd('MasonUpdate')
+    end, 1000) -- Wait 1 second after startup
   end
   },
   {
     "mason-org/mason-lspconfig.nvim",
     config = function()
+      require("mason").setup()
+
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "tailwindcss" }
+        ensure_installed = { "lua_ls", "ts_ls", "tailwindcss" },
       })
 
-      require("mason").setup()
       local registry = require("mason-registry")
 
       -- Auto-install swiftlint
@@ -60,6 +70,7 @@ return {
       vim.api.nvim_set_hl(0, 'DiagnosticVirtualTextInfo', { bg = '#2d3640', fg = '#89b4fa' })
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local lspconfig = require('lspconfig')
 
       local on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
@@ -73,10 +84,9 @@ return {
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
       end
 
-      vim.lsp.config.lua_ls = {
+      -- Lua LSP
+      lspconfig.lua_ls.setup({
         capabilities = capabilities,
-        cmd = { 'lua-language-server' },
-        root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
         on_attach = on_attach,
         settings = {
           Lua = {
@@ -85,26 +95,37 @@ return {
             }
           }
         }
-      }
+      })
 
-      vim.lsp.config.ts_ls = {
+      -- TypeScript LSP
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
-      vim.lsp.config.sourcekit = {
-        cmd = { 'sourcekit-lsp' },
+      -- SourceKit LSP (Swift) - Using xcrun to find sourcekit-lsp
+      lspconfig.sourcekit.setup({
+        cmd = { vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")) },
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { 'swift', 'objective-c', 'objective-cpp' },
-      }
+        root_dir = function(filename, bufnr)
+          return lspconfig.util.root_pattern(
+            'buildServer.json',
+            '*.xcodeproj',
+            '*.xcworkspace',
+            'Package.swift',
+            'compile_commands.json',
+            '.git'
+          )(filename)
+        end,
+      })
 
-      vim.lsp.config.tailwindcss = {
+      -- Tailwind CSS LSP
+      lspconfig.tailwindcss.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-      }
-
-      vim.lsp.enable({ 'lua_ls', 'ts_ls', 'sourcekit', 'tailwindcss' })
+      })
     end
   }
 }

@@ -7,9 +7,10 @@ return {
   },
   config = function()
     local xcodebuild = require("xcodebuild.integrations.dap")
-    local codelldbPath = os.getenv("HOME") .. "/tools/codelldb-aarch64-darwin/extension/adapter/codelldb"
 
-    xcodebuild.setup(codelldbPath)
+    -- Xcode 16+ has built-in debugging support, no codelldb needed
+    -- Pass true to load breakpoints (default behavior)
+    xcodebuild.setup(true)
 
     -- Setup nvim-dap-ui
     local dap = require("dap")

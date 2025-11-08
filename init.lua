@@ -15,7 +15,16 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  checker = {
+    enabled = true,        -- Automatically check for plugin updates
+    notify = true,         -- Show notification when updates are available
+    frequency = 3600,      -- Check every hour (in seconds)
+  },
+  install = {
+    missing = true,        -- Automatically install missing plugins
+  },
+})
 require("vim-options")
 
 -- Initialize theme switcher
